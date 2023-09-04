@@ -1,0 +1,39 @@
+local ValidItems = {
+    Arrow = true,
+    Rokakaka = true,
+    ["Mysterious Camera"] = true,
+    ["Hamon Manual"] = true,
+    ["Stop Sign"] = true,
+    ["Stone Mask"] = true,
+    ["Haunted Sword"] = true,
+    ["Spin Manual"] = true,
+    Barrel = true,
+    ["Bomu Bomu Devil Fruit"] = true,
+    ["Mochi Mochi Devil Fruit"] = true,
+    ["Bari Bari Devil Fruit"] = true
+}
+
+local function SellItems()
+    local player = game.Players.LocalPlayer
+    local backpack = player.Backpack
+
+    for _, item in ipairs(backpack:GetChildren()) do
+        if ValidItems[item.Name] then
+            local args = {
+                [1] = tostring(item.Name)
+            }
+
+            local R = game:GetService("ReplicatedStorage"):WaitForChild("GlobalUsedRemotes"):WaitForChild("SellItem")
+            R:FireServer(unpack(args))
+        end
+    end
+end
+
+while true do
+    SellItems()
+    wait(1)
+end
+
+--You should use this script with this script so that it autosells whichever items you get:
+
+-- loadstring(game:HttpGet("https://raw.githubusercontent.com/Historia00012/Sakura/main/SakuraStabd"))()
